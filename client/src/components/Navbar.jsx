@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Image from "./Image";
 import { Link } from "react-router-dom";
-import { SignedOut } from "@clerk/clerk-react";
+import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -57,6 +57,10 @@ const Navbar = () => {
             </button>
           </Link>
         </SignedOut>
+        
+        <SignedIn>
+          <UserButton />
+        </SignedIn>
       </div>
     </div>
   );

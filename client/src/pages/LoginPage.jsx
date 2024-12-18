@@ -4,7 +4,7 @@ import React from 'react'
 const LoginPage = () => {
   return (
     <div className='flex justify-center items-center h-[calc(100vh-80px)]'>
-      <SignIn />
+      <SignIn signUpUrl='/register'/>
     </div>
   )
 }
