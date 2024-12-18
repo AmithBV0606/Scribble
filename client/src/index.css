@@ -1,3 +1,29 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+  background: #0a0908;
+  color: #fffcf2;
+  width: 100w;
+  overflow-x: hidden;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.gradient {
+  background-image: linear-gradient(
+    40deg,
+    hsl(0deg 0% 0%) 3%,
+    hsl(191deg 45% 3%) 31%,
+    hsl(191deg 16% 7%) 47%,
+    hsl(192deg 10% 9%) 60%,
+    hsl(192deg 8% 11%) 71%,
+    hsl(192deg 7% 13%) 79%,
+    hsl(192deg 6% 15%) 86%,
+    hsl(192deg 5% 18%) 91%,
+    hsl(192deg 5% 20%) 96%,
+    hsl(192deg 4% 22%) 98%,
+    hsl(192deg 4% 24%) 100%,
+    hsl(192deg 4% 27%) 100%
+  );
+}
