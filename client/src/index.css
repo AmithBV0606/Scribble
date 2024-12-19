@@ -27,3 +27,7 @@ body {
     hsl(192deg 4% 27%) 100%
   );
 }
+
+.animatedButton {
+  animation-duration: 10000ms;
+}
