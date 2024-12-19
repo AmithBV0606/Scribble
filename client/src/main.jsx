@@ -38,15 +38,25 @@ const router = createBrowserRouter([
         path: "/write",
         element: <Write />,
       },
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
-      {
-        path: "/register",
-        element: <RegisterPage />,
-      },
+      // Have to see in the future something breaks due to this change!!
+      
+      // {
+      //   path: "/login",
+      //   element: <LoginPage />,
+      // },
+      // {
+      //   path: "/register",
+      //   element: <RegisterPage />,
+      // },
     ],
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
   },
 ]);
 
