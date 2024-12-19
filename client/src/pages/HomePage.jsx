@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import MainCategories from "../components/MainCategories";
 
 const HomePage = () => {
   return (
@@ -44,10 +45,10 @@ const HomePage = () => {
             />
             <text>
               <textPath href="#circlePath" startOffset="0%">
-              • Write your story •
+                • Write your story •
               </textPath>
               <textPath href="#circlePath" startOffset="50%">
-              • Share your idea •
+                • Share your idea •
               </textPath>
             </text>
           </svg>
@@ -68,6 +69,10 @@ const HomePage = () => {
           </button>
         </Link>
       </div>
+
+      {/* Featured Post */}
+      <MainCategories />
+      
       {/* Featured Post */}
       {/* Post List */}
     </div>
