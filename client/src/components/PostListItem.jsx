@@ -4,15 +4,15 @@ import { Link } from 'react-router-dom';
 
 const PostListItem = () => {
   return (
-    <div className='flex flex-col xl:flex-row gap-8'>
+    <div className='flex flex-col items-center xl:flex-row gap-8 mb-6'>
         {/* Image */}
         <div className='md:hidden xl:block'>
-            <Image src="postImg.jpeg" className={"rounded-2xl object-cover"} w="704" />
+            <Image src="postImg.jpeg" className={"rounded-2xl object-cover"} w="750" />
         </div>
 
         {/* Details */}
-        <div className='flex flex-col gap-2'>
-            <Link to="/test" className='text-4xl font-semibold'>
+        <div className='flex flex-col gap-3'>
+            <Link to="/test" className='text-3xl font-semibold'>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit.
             </Link>
 
@@ -24,7 +24,7 @@ const PostListItem = () => {
                 <span>3 days ago</span>
             </div>
 
-            <p>
+            <p className='text-justify'>
                 Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cumque eos sequi dolore ratione quaerat doloremque eaque soluta aperiam repellat ipsam harum voluptatibus, architecto dolores?
             </p>
 

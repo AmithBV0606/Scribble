@@ -52,7 +52,7 @@ const Write = () => {
           className="outline-none p-4 rounded-xl text-black bg-slate-50"
         />
 
-        <ReactQuill theme="snow" className="flex-1 rounded-xl bg-slate-50" />
+        <ReactQuill theme="snow" className="flex-1 rounded-xl bg-slate-50 text-black" />
 
         <button className="bg-blue-700 hover:bg-blue-600 text-white font-medium rounded-xl mt-4 p-2 w-36">
           Post
