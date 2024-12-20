@@ -31,3 +31,18 @@ body {
 .animatedButton {
   animation-duration: 10000ms;
 }
+
+.ql-container {
+  border: none !important;
+}
+
+.ql-toolbar {
+  border-bottom: 1px solid black !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+}
+
+.ql-editor {
+  border: none !important;
+}
