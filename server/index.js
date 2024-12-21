@@ -6,6 +6,8 @@ import connectDB from "./lib/connectDB.js";
 
 const app = express();
 
+app.use(express.json());
+
 // console.log(process.env.test);
 
 // app.get("/test", (req, res) => {
