@@ -1,9 +1,32 @@
-import { useUser } from "@clerk/clerk-react";
+import { useAuth, useUser } from "@clerk/clerk-react";
 import "react-quill-new/dist/quill.snow.css";
 import ReactQuill from "react-quill-new";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Write = () => {
   const { isLoaded, isSignedIn } = useUser();
+  const [value, setValue] = useState("");
+
+  const navigate = useNavigate();
+
+  const { getToken } = useAuth();
+
+  const mutation = useMutation({
+    mutationFn: async (newPost) => {
+      const token = await getToken();
+      return axios.post(`${import.meta.env.VITE_API_URL}/posts`, newPost, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+    },
+    onSuccess: (res) => {
+      toast.success("Post has been created!")
+      navigate(`/${res.data.slug}`)
+    }
+  });
 
   if (!isLoaded) {
     return <div>Loading</div>;
@@ -13,11 +36,27 @@ const Write = () => {
     return <div>You should login</div>;
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+
+    const data = {
+      title: formData.get("title"),
+      category: formData.get("category"),
+      desc: formData.get("desc"),
+      content: value,
+    };
+
+    console.log(data);
+
+    mutation.mutate(data);
+  };
+
   return (
     <div className="h-[calc(100vh-64px)] md:h-[calc(100vh-80px)] flex flex-col gap-6">
       <h1 className="text-xl font-light">Create a New Post</h1>
 
-      <form className="flex flex-col gap-6 flex-1 mb-6">
+      <form className="flex flex-col gap-6 flex-1 mb-6" onSubmit={handleSubmit}>
         <button className="p-2 rounded-xl text-sm text-white bg-blue-700 hover:bg-blue-600 w-max">
           Add a cover image
         </button>
@@ -26,6 +65,7 @@ const Write = () => {
           type="text"
           placeholder="My Awesome Story"
           className="outline-none text-4xl font-semibold bg-transparent"
+          name="title"
         />
 
         <div className="flex items-center gap-4">
@@ -33,7 +73,7 @@ const Write = () => {
             Choose a category :{" "}
           </label>
           <select
-            name="cat"
+            name="category"
             id=""
             className="text-black outline-none cursor-pointer p-2 rounded-xl bg-slate-50"
           >
@@ -52,11 +92,21 @@ const Write = () => {
           className="outline-none p-4 rounded-xl text-black bg-slate-50"
         />
 
-        <ReactQuill theme="snow" className="flex-1 rounded-xl bg-slate-50 text-black" />
+        <ReactQuill
+          theme="snow"
+          className="flex-1 rounded-xl bg-slate-50 text-black"
+          value={value}
+          onChange={setValue}
+        />
 
-        <button className="bg-blue-700 hover:bg-blue-600 text-white font-medium rounded-xl mt-4 p-2 w-36">
-          Post
+        <button
+          disabled={mutation.isPending}
+          className="bg-blue-700 hover:bg-blue-600 text-white font-medium rounded-xl mt-4 p-2 w-36 disabled:bg-blue-400 disabled:cursor-not-allowed"
+        >
+          {mutation.isPending ? "Loading..." : "Post"}
         </button>
+
+        {mutation.isError && <span>An error occurred: {mutation.error.message}</span>}
       </form>
     </div>
   );

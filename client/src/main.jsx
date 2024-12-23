@@ -10,6 +10,15 @@ import LoginPage from "./pages/LoginPage.jsx";
 import RegisterPage from "./pages/RegisterPage.jsx";
 import MainLayout from "./layouts/MainLayout.jsx";
 import { ClerkProvider } from "@clerk/clerk-react";
+import { ToastContainer, toast } from 'react-toastify';
+
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 // Import your Publishable Key
 const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
@@ -39,7 +48,7 @@ const router = createBrowserRouter([
         element: <Write />,
       },
       // Have to see in the future something breaks due to this change!!
-      
+
       // {
       //   path: "/login",
       //   element: <LoginPage />,
@@ -63,7 +72,10 @@ const router = createBrowserRouter([
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-      <RouterProvider router={router} />
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+        <ToastContainer position="bottom-right" />
+      </QueryClientProvider>
     </ClerkProvider>
   </StrictMode>
 );
