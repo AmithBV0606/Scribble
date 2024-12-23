@@ -1,4 +1,5 @@
 import Post from "../models/post.model.js";
+import User from "../models/user.model.js";
 
 export const getPosts = async (req, res) => {
   const posts = await Post.find();
@@ -11,11 +12,35 @@ export const getPost = async (req, res) => {
 };
 
 export const createPost = async (req, res) => {
-    const newPost = await Post.create(req.body);
-    res.status(200).json(newPost);
-}
+  const clerkUserId = req.auth.userId;
+
+  if (!clerkUserId) {
+    return res.status(401).json("Not Authenticated!!");
+  }
+
+  const user = await User.findOne({ clerkUserId });
+
+  if (!user) {
+    return res.status(404).json("User not found!!");
+  }
+
+  const newPost = await Post.create({ user: user._id, ...req.body });
+  res.status(200).json(newPost);
+};
 
 export const deletePost = async (req, res) => {
-    const post = await Post.findByIdAndDelete(req.params.id);
-    res.status(200).json("Post has been deleted!!");
-}
+  const clerkUserId = req.auth.userId;
+
+  if (!clerkUserId) {
+    return res.status(401).json("Not Authenticated!!");
+  }
+
+  const user = await User.findOne({ clerkUserId });
+
+  const post = await Post.findOneAndDelete({
+    _id: req.params.id,
+    user: user._id,
+  });
+
+  res.status(200).json("Post has been deleted!!");
+};

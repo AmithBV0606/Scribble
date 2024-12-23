@@ -6,7 +6,11 @@ import postRouter from "./routes/post.route.js";
 import commentRouter from "./routes/comment.route.js";
 import webhookRouter from "./routes/webhook.route.js";
 
+import { clerkMiddleware, requireAuth } from "@clerk/express";
+
 const app = express();
+
+app.use(clerkMiddleware());
 
 app.use("/webhooks", webhookRouter);  // To avoid conflict between express.json() and body-parser library, this middleware has been moved to top.
 
@@ -16,6 +20,25 @@ app.use(express.json());
 
 // app.get("/test", (req, res) => {
 //     res.status(200).send("It works");
+// });
+
+// app.get("/auth-status", (req, res) => {
+//   const authStatus = req.auth;
+//   res.json({
+//     authStatus
+//   })
+// });
+
+// app.get("/protect", (req, res) => {
+//   const {userId} = req.auth;
+//   if (!userId) {
+//     return res.status(401).json("not authenticated");
+//   }
+//   res.status(200).json("content");
+// });
+
+// app.get("/protect2", requireAuth(), (req, res) => {
+//   res.status(200).json("content");
 // });
 
 app.use("/users", userRouter);
