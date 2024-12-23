@@ -1,5 +1,7 @@
 import { Webhook } from "svix";
 import User from "../models/user.model.js";
+import Post from "../models/post.model.js";
+import Comment from "../models/comment.model.js";
 
 export const clerkWebhook = async (req, res) => {
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
@@ -34,6 +36,15 @@ export const clerkWebhook = async (req, res) => {
     });
 
     await newUser.save();
+  }
+
+  if (event.type === "user.deleted") {
+    const deletedUser = await User.findOneAndDelete({
+      clerkUserId: event.data.id,
+    });
+
+    await Post.deleteMany({ user: deletedUser._id });
+    await Comment.deleteMany({ user: deletedUser._id });
   }
 
   return res.status(200).json({
