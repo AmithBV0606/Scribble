@@ -3,13 +3,29 @@ import "react-quill-new/dist/quill.snow.css";
 import ReactQuill from "react-quill-new";
 import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Upload from "../components/Upload";
 
 const Write = () => {
   const { isLoaded, isSignedIn } = useUser();
   const [value, setValue] = useState("");
+  const [cover, setCover] = useState("");
+  const [progress, setProgress] = useState(0);
+  const [img, setImg] = useState("");
+  const [video, setVideo] = useState("");
+
+  useEffect(() => {
+    img && setValue((prev) => prev + `<p><image src="${img.url}" /></p>`);
+  }, [img]);
+
+  useEffect(() => {
+    video &&
+      setValue(
+        (prev) => prev + `<p><iframe class="ql-video" src="${video.url}" /></p>`
+      );
+  }, [video]);
 
   const navigate = useNavigate();
 
@@ -23,9 +39,9 @@ const Write = () => {
       });
     },
     onSuccess: (res) => {
-      toast.success("Post has been created!")
-      navigate(`/${res.data.slug}`)
-    }
+      toast.success("Post has been created!");
+      navigate(`/${res.data.slug}`);
+    },
   });
 
   if (!isLoaded) {
@@ -41,6 +57,7 @@ const Write = () => {
     const formData = new FormData(e.target);
 
     const data = {
+      img: cover.filePath || "",
       title: formData.get("title"),
       category: formData.get("category"),
       desc: formData.get("desc"),
@@ -57,9 +74,13 @@ const Write = () => {
       <h1 className="text-xl font-light">Create a New Post</h1>
 
       <form className="flex flex-col gap-6 flex-1 mb-6" onSubmit={handleSubmit}>
-        <button className="p-2 rounded-xl text-sm text-white bg-blue-700 hover:bg-blue-600 w-max">
-          Add a cover image
-        </button>
+        <Upload type="image" setProgress={setProgress} setData={setCover}>
+          <button className="p-2 rounded-xl text-sm text-white bg-blue-700 hover:bg-blue-600 w-max">
+            Add a cover image
+          </button>
+        </Upload>
+
+        {"Progress : " + progress}
 
         <input
           type="text"
@@ -92,21 +113,34 @@ const Write = () => {
           className="outline-none p-4 rounded-xl text-black bg-slate-50"
         />
 
-        <ReactQuill
-          theme="snow"
-          className="flex-1 rounded-xl bg-slate-50 text-black"
-          value={value}
-          onChange={setValue}
-        />
+        <div className="flex flex-1">
+          <div className="flex flex-col gap-2">
+            <Upload type="image" setProgress={setProgress} setData={setImg}>
+              🖼️
+            </Upload>
+            <Upload type="video" setProgress={setProgress} setData={setVideo}>
+              ▶️
+            </Upload>
+          </div>
+
+          <ReactQuill
+            theme="snow"
+            className="flex-1 rounded-xl bg-slate-50 text-black"
+            value={value}
+            onChange={setValue}
+          />
+        </div>
 
         <button
-          disabled={mutation.isPending}
+          disabled={mutation.isPending || (0 < progress && progress < 100)}
           className="bg-blue-700 hover:bg-blue-600 text-white font-medium rounded-xl mt-4 p-2 w-36 disabled:bg-blue-400 disabled:cursor-not-allowed"
         >
           {mutation.isPending ? "Loading..." : "Post"}
         </button>
 
-        {mutation.isError && <span>An error occurred: {mutation.error.message}</span>}
+        {mutation.isError && (
+          <span>An error occurred: {mutation.error.message}</span>
+        )}
       </form>
     </div>
   );
