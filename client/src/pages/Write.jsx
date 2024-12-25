@@ -138,9 +138,9 @@ const Write = () => {
           {mutation.isPending ? "Loading..." : "Post"}
         </button>
 
-        {mutation.isError && (
+        {/* {mutation.isError && (
           <span>An error occurred: {mutation.error.message}</span>
-        )}
+        )} */}
       </form>
     </div>
   );
