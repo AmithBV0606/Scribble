@@ -61,6 +61,13 @@ export const deletePost = async (req, res) => {
     return res.status(401).json("Not Authenticated!!");
   }
 
+  const role = req.auth.sessionClaims?.metadata?.role || "user";
+
+  if (role === "admin") {
+    await Post.findByIdAndDelete(req.params.id);
+    return res.status(200).json("Post has been deleted!!");
+  }
+
   const user = await User.findOne({ clerkUserId });
 
   const deletedPost = await Post.findOneAndDelete({
@@ -84,4 +91,35 @@ const imagekit = new ImageKit({
 export const uploadAuth = async (req, res) => {
   const result = imagekit.getAuthenticationParameters();
   res.send(result);
+};
+
+export const featurePost = async (req, res) => {
+  const clerkUserId = req.auth.userId;
+  const postId = req.body.postId;
+
+  if (!clerkUserId) {
+    return res.status(401).json("Not Authenticated!!");
+  }
+
+  const role = req.auth.sessionClaims?.metadata?.role || "user";
+
+  if (role !== "admin") {
+    return res.status(403).json("You cannot feature posts!");
+  }
+
+  const post = await Post.findById(postId);
+
+  if (!post) {
+    return res.status(404).json("Post not found!");
+  }
+
+  const isFeatured = post.isFeatured;
+
+  const updatedPost = await Post.findByIdAndUpdate(
+    postId,
+    { isFeatured: isFeatured },
+    { new: true }
+  );
+
+  res.status(200).json(updatedPost);
 };

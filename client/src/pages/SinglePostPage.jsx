@@ -16,23 +16,23 @@ const fetchPost = async (slug) => {
 };
 
 // To change the text and background color of the text extracted from the quill editor
-// const setColors = (html) => {
-//   return html.replace(/style="([^"]*)"/g, (match, styles) => {
-//       let newStyles = styles
-//           .replace(/color:\s*rgb\((\d+),\s*(\d+),\s*(\d+)\);?/g, () => {
-//               return `color: rgb(255, 255, 255);`; // Set text color to white
-//           })
-//           .replace(/background-color:\s*rgb\((\d+),\s*(\d+),\s*(\d+)\);?/g, () => {
-//               return `background-color: rgb(10, 9, 8);`; // Set background color to black
-//           });
-//       return `style="${newStyles}"`;
-//   });
-// };
+const setColors = (html) => {
+  return html.replace(/style="([^"]*)"/g, (match, styles) => {
+      let newStyles = styles
+          .replace(/color:\s*rgb\((\d+),\s*(\d+),\s*(\d+)\);?/g, () => {
+              return `color: rgb(255, 255, 255);`; // Set text color to white
+          })
+          .replace(/background-color:\s*rgb\((\d+),\s*(\d+),\s*(\d+)\);?/g, () => {
+              return `background-color: rgb(10, 9, 8);`; // Set background color to black
+          });
+      return `style="${newStyles}"`;
+  });
+};
 
 // To covert the HTML to plaintext
 const BlogPost = ({ content }) => {
-  // const styledContent = setColors(content);
-  return <div dangerouslySetInnerHTML={{ __html: content }} />;
+  const styledContent = setColors(content);
+  return <div dangerouslySetInnerHTML={{ __html: styledContent }} />;
 };
 
 const SinglePostPage = () => {

@@ -54,7 +54,7 @@ const Comments = ({ postId }) => {
   };
 
   return (
-    <div className="flex flex-col gap-8 lg:w-3/5 mb-8">
+    <div className="flex flex-col gap-8 lg:w-3/5 text-black">
       <h1 className="text-xl underline text-gray-300">Comments</h1>
 
       <form
@@ -66,7 +66,7 @@ const Comments = ({ postId }) => {
           placeholder="Write a comment..."
           className="w-full p-4 rounded-xl text-black outline-none"
         />
-        <button className="bg-blue-700 hover:bg-blue-600 px-4 py-3 rounded-xl">
+        <button className="bg-blue-700 hover:bg-blue-600 px-4 py-3 rounded-xl text-white">
           Send
         </button>
       </form>
@@ -92,7 +92,7 @@ const Comments = ({ postId }) => {
           )}
 
           {data.map((comment) => (
-            <Comment key={comment._id} comment={comment} />
+            <Comment key={comment._id} comment={comment} postId={postId}/>
           ))}
         </>
       )}
