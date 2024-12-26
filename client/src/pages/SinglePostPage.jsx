@@ -90,7 +90,7 @@ const SinglePostPage = () => {
       </div>
 
       {/* Content */}
-      <div className="flex flex-col md:flex-row gap-4">
+      <div className="flex flex-col md:flex-row md:justify-between gap-4">
         {/* Text */}
         <div className="text-lg lg:text-base font-extralight flex flex-col gap-6 text-justify bg-black text-white">
           <BlogPost content={data.content} />
