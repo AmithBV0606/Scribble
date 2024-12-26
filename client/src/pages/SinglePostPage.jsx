@@ -93,68 +93,6 @@ const SinglePostPage = () => {
       <div className="flex flex-col md:flex-row gap-4">
         {/* Text */}
         <div className="text-lg lg:text-base font-extralight flex flex-col gap-6 text-justify bg-black text-white">
-          {/* <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam
-            dignissimos voluptatem dolorum magni modi mollitia veniam laboriosam
-            expedita, eligendi, qui cum itaque nostrum maxime hic vero quia
-            doloremque quidem voluptas a rem laudantium error. At ducimus atque
-            enim minus eos ullam, quaerat consectetur exercitationem quos, eaque
-            neque quod iusto voluptas? Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Ullam dignissimos voluptatem dolorum magni modi
-            mollitia veniam laboriosam expedita, eligendi, qui cum itaque
-            nostrum maxime hic vero quia doloremque quidem voluptas a rem
-            laudantium error. At ducimus atque enim minus eos ullam, quaerat
-            consectetur exercitationem quos, eaque neque quod iusto voluptas?
-          </p>
-
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam
-            dignissimos voluptatem dolorum magni modi mollitia veniam laboriosam
-            expedita, eligendi, qui cum itaque nostrum maxime hic vero quia
-            doloremque quidem voluptas a rem laudantium error. At ducimus atque
-            enim minus eos ullam, quaerat consectetur exercitationem quos, eaque
-            neque quod iusto voluptas?
-          </p>
-
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam
-            dignissimos voluptatem dolorum magni modi mollitia veniam laboriosam
-            expedita, eligendi, qui cum itaque nostrum maxime hic vero quia
-            doloremque quidem voluptas a rem laudantium error. At ducimus atque
-            enim minus eos ullam, quaerat consectetur exercitationem quos, eaque
-            neque quod iusto voluptas? Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Ullam dignissimos voluptatem dolorum magni modi
-            mollitia veniam laboriosam expedita, eligendi, qui cum itaque
-            nostrum maxime hic vero quia doloremque quidem voluptas a rem
-            laudantium error. At ducimus atque enim minus eos ullam, quaerat
-            consectetur exercitationem quos, eaque neque quod iusto voluptas?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam
-            dignissimos voluptatem dolorum magni modi mollitia veniam laboriosam
-            expedita, eligendi, qui cum itaque nostrum maxime hic vero quia
-            doloremque quidem voluptas a rem laudantium error. At ducimus atque
-            enim minus eos ullam, quaerat consectetur exercitationem quos, eaque
-            neque quod iusto voluptas?
-          </p>
-
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam
-            dignissimos voluptatem dolorum magni modi mollitia veniam laboriosam
-            expedita, eligendi, qui cum itaque nostrum maxime hic vero quia
-            doloremque quidem voluptas a rem laudantium error. At ducimus atque
-            enim minus eos ullam, quaerat consectetur exercitationem quos, eaque
-            neque quod iusto voluptas? Lorem ipsum dolor sit, amet consectetur
-            adipisicing elit. Ullam dignissimos voluptatem dolorum magni modi
-            mollitia veniam laboriosam expedita, eligendi, qui cum itaque
-            nostrum maxime hic vero quia doloremque quidem voluptas a rem
-            laudantium error. At ducimus atque enim minus eos ullam, quaerat
-            consectetur exercitationem quos, eaque neque quod iusto voluptas?
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ullam
-            dignissimos voluptatem dolorum magni modi mollitia veniam laboriosam
-            expedita, eligendi, qui cum itaque nostrum maxime hic vero quia
-            doloremque quidem voluptas a rem laudantium error. At ducimus atque
-            enim minus eos ullam, quaerat consectetur exercitationem quos, eaque
-            neque quod iusto voluptas?
-          </p> */}
           <BlogPost content={data.content} />
         </div>
 
@@ -193,7 +131,7 @@ const SinglePostPage = () => {
             </div>
           </div>
 
-          <PostMenuActions />
+          <PostMenuActions post={data}/>
 
           <h1 className="mt-8 mb-4 text-base font-bold">Categories</h1>
 

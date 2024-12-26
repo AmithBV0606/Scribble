@@ -1,9 +1,9 @@
 import express from "express";
+import { getUserSavedPost, savePost } from "../controllers/user.controller.js";
 
 const router = express.Router();
 
-router.get("/anothertest", (req, res) => {
-    res.status(200).send("User router");
-});
+router.get("/saved", getUserSavedPost);
+router.patch("/save", savePost);
 
 export default router;
