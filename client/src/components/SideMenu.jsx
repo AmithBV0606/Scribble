@@ -64,6 +64,8 @@ const SideMenu = () => {
           Trending
         </label>
 
+        {/* Note : Trending post is calculated based on the post which has most number of visits and that post was uploaded before last 7 days. */}
+
         <label htmlFor="" className="flex items-center gap-2 cursor-pointer">
           <input
             type="radio"

@@ -7,12 +7,14 @@ import {
   getPosts,
   uploadAuth,
 } from "../controllers/post.contoller.js";
+import increasePageVisit from "../middlewares/increasePageVisit.js";
 
 const router = express.Router();
 
-router.get("/upload-auth", uploadAuth); 
+router.get("/upload-auth", uploadAuth);
+
 router.get("/", getPosts); // Get all posts
-router.get("/:slug", getPost); // Get a specified post
+router.get("/:slug", increasePageVisit, getPost); // Get a specified post
 router.post("/", createPost); // Create a post
 router.delete("/:id", deletePost); // Delete the specified post
 router.patch("/feature", featurePost);
