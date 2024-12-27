@@ -59,7 +59,7 @@ const Comments = ({ postId }) => {
 
       <form
         onSubmit={handleSubmit}
-        className="flex items-center justify-between gap-8 w-full mb-6"
+        className="flex items-center justify-between gap-8 w-full"
       >
         <textarea
           name="desc"
