@@ -50,6 +50,7 @@ const PostMenuActions = ({ post }) => {
   });
 
   const queryClient = useQueryClient();
+  // console.log(queryClient);
 
   const saveMutation = useMutation({
     mutationFn: async () => {
@@ -66,9 +67,9 @@ const PostMenuActions = ({ post }) => {
         }
       );
     },
-    onSuccess: () => {
+    onSuccess: (response) => {
       queryClient.invalidateQueries({ queryKey: ["savedPosts"] });
-      toast.success("Post saved successfully!");
+      toast.success(`${response.data} successfully!`);
     },
     onError: (error) => {
       toast.error(error.response.data);
@@ -138,15 +139,7 @@ const PostMenuActions = ({ post }) => {
               d="M12 4C10.3 4 9 5.3 9 7v34l15-9 15 9V7c0-1.7-1.3-3-3-3H12z"
               stroke="white"
               strokeWidth="2"
-              fill={
-                saveMutation.isPending
-                  ? isSaved
-                    ? "none"
-                    : "white"
-                  : isSaved
-                  ? "white"
-                  : "none"
-              }
+              fill={isSaved ? "white" : "none"}
             />
           </svg>
 
