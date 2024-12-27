@@ -22,7 +22,7 @@ export const savePost = async (req, res) => {
 
   const user = await User.findOne({ clerkUserId });
 
-  const isSaved = user.savedPosts.some((post) => post === postId);
+  const isSaved = user.savedPosts.some((p) => p === postId);
 
   if (!isSaved) {
     await User.findByIdAndUpdate(user._id, {
@@ -34,7 +34,5 @@ export const savePost = async (req, res) => {
     });
   }
 
-  setTimeout(() => {
-    res.status(200).json(isSaved ? "Post unsaved" : "Post saved");
-  }, 3000);
+  res.status(200).json(isSaved ? "Post unsaved" : "Post saved");
 };

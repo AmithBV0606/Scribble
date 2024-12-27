@@ -176,7 +176,7 @@ export const featurePost = async (req, res) => {
 
   const updatedPost = await Post.findByIdAndUpdate(
     postId,
-    { isFeatured: isFeatured },
+    { isFeatured: !isFeatured },
     { new: true }
   );
 

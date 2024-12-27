@@ -136,7 +136,7 @@ const PostMenuActions = ({ post }) => {
           >
             <path
               d="M12 4C10.3 4 9 5.3 9 7v34l15-9 15 9V7c0-1.7-1.3-3-3-3H12z"
-              stroke={isSaved ? "green" : "white"}
+              stroke="white"
               strokeWidth="2"
               fill={
                 saveMutation.isPending

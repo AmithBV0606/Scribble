@@ -43,7 +43,7 @@ const SinglePostPage = () => {
     queryFn: () => fetchPost(slug),
   });
 
-  console.log(data);
+  // console.log(data);
 
   if (isPending) {
     return "loading...";
