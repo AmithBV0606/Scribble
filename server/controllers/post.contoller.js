@@ -35,7 +35,7 @@ export const getPosts = async (req, res) => {
   let sortObj = { createdAt: -1 };
 
   if (sortQuery) {
-    switch (searchQuery) {
+    switch (sortQuery) {
       case "newest":
         sortObj = { createdAt: -1 };
         break;

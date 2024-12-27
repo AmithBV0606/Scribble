@@ -1,7 +1,27 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import Search from "./Search";
 
 const SideMenu = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleFilterChange = (e) => {
+    if (searchParams.get("sort") !== e.target.value) {
+      setSearchParams({
+        ...Object.fromEntries(searchParams.entries()),
+        sort: e.target.value,
+      });
+    }
+  };
+
+  const handleCategoryChange = (category) => {
+    if (searchParams.get("cat") !== category) {
+      setSearchParams({
+        ...Object.fromEntries(searchParams.entries()),
+        cat: category,
+      });
+    }
+  };
+
   return (
     <div className="px-4 h-max sticky top-8">
       <h1 className="mb-4 text-lg font-medium">Search</h1>
@@ -15,6 +35,7 @@ const SideMenu = () => {
           <input
             type="radio"
             name="sort"
+            onChange={handleFilterChange}
             value="newest"
             className="appearance-none w-4 h-4 border-[1.5px] bg-white border-white cursor-pointer rounded-sm checked:bg-blue-700"
           />
@@ -25,6 +46,7 @@ const SideMenu = () => {
           <input
             type="radio"
             name="sort"
+            onChange={handleFilterChange}
             value="popular"
             className="appearance-none w-4 h-4 border-[1.5px] bg-white border-white cursor-pointer rounded-sm checked:bg-blue-700"
           />
@@ -35,6 +57,7 @@ const SideMenu = () => {
           <input
             type="radio"
             name="sort"
+            onChange={handleFilterChange}
             value="trending"
             className="appearance-none w-4 h-4 border-[1.5px] bg-white border-white cursor-pointer rounded-sm checked:bg-blue-700"
           />
@@ -45,6 +68,8 @@ const SideMenu = () => {
           <input
             type="radio"
             name="sort"
+            onChange={handleFilterChange}
+            // onChange={(e) => console.log(e.target.value)}
             value="oldest"
             className="appearance-none w-4 h-4 border-[1.5px] bg-white border-white cursor-pointer rounded-sm checked:bg-blue-700"
           />
@@ -54,22 +79,40 @@ const SideMenu = () => {
 
       <h1 className="mt-8 mb-4 text-lg font-medium">Categories</h1>
       <div className="flex flex-col gap-2 text-sm text-gray-300">
-        <Link className="underline" to={"/posts"}>
+        <Link
+          className="underline cursor-pointer"
+          onClick={() => handleCategoryChange("general")}
+        >
           All
         </Link>
-        <Link className="underline" to={"/posts?cat=web-design"}>
+        <Link
+          className="underline cursor-pointer"
+          onClick={() => handleCategoryChange("web-design")}
+        >
           Web Design
         </Link>
-        <Link className="underline" to={"/posts?cat=development"}>
+        <Link
+          className="underline cursor-pointer"
+          onClick={() => handleCategoryChange("development")}
+        >
           Development
         </Link>
-        <Link className="underline" to={"/posts?cat=databases"}>
+        <Link
+          className="underline cursor-pointer"
+          onClick={() => handleCategoryChange("databases")}
+        >
           Databases
         </Link>
-        <Link className="underline" to={"/posts?cat=seo"}>
+        <Link
+          className="underline cursor-pointer"
+          onClick={() => handleCategoryChange("seo")}
+        >
           Search Engines
         </Link>
-        <Link className="underline" to={"/posts?cat=marketing"}>
+        <Link
+          className="underline cursor-pointer"
+          onClick={() => handleCategoryChange("marketing")}
+        >
           Marketing
         </Link>
       </div>

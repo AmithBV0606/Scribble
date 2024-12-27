@@ -6,7 +6,7 @@ import { useSearchParams } from "react-router-dom";
 
 const fetchPosts = async (pageParam, searchParams) => {
   const searchParamsObj = Object.fromEntries([...searchParams]);
-  console.log(searchParamsObj);
+  // console.log(searchParamsObj);
   const response = await axios.get(`${import.meta.env.VITE_API_URL}/posts`, {
     params: { page: pageParam, limit: 10, ...searchParamsObj },
   });
@@ -32,7 +32,7 @@ const PostList = () => {
       lastPage.hasMore ? pages.length + 1 : undefined,
   });
 
-  console.log(data);
+  // console.log(data);
 
   /*
     - Page : 1 = Posts[1,2]
@@ -42,9 +42,11 @@ const PostList = () => {
     Using flatmap = [1,2,3,4,5,6]
   */
 
-  if (status === "loading") return "Loading...";
+  // if (status === "loading") return "Loading...";
+  if (isFetching) return "Loading...";
 
-  if (status === "error") return "Something went wrong";
+  // if (status === "error") return "Something went wrong!";
+  if (error) return "Something went wrong!";
 
   const allPosts = data?.pages?.flatMap((page) => page.posts) || [];
 
