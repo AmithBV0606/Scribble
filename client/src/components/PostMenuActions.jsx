@@ -29,12 +29,12 @@ const PostMenuActions = ({ post }) => {
   });
 
   const isAdmin = user?.publicMetadata?.role === "admin" || false;
-  const isSaved = savedPosts?.data?.some((p) => p === post._id) || false;
+  const isSaved = savedPosts?.data?.some((p) => p === post?._id) || false;
 
   const deleteMutation = useMutation({
     mutationFn: async () => {
       const token = await getToken();
-      return axios.delete(`${import.meta.env.VITE_API_URL}/posts/${post._id}`, {
+      return axios.delete(`${import.meta.env.VITE_API_URL}/posts/${post?._id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -58,7 +58,7 @@ const PostMenuActions = ({ post }) => {
       return axios.patch(
         `${import.meta.env.VITE_API_URL}/users/save`,
         {
-          postId: post._id,
+          postId: post?._id,
         },
         {
           headers: {
@@ -82,7 +82,7 @@ const PostMenuActions = ({ post }) => {
       return axios.patch(
         `${import.meta.env.VITE_API_URL}/posts/feature`,
         {
-          postId: post._id,
+          postId: post?._id,
         },
         {
           headers: {

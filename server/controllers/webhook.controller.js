@@ -43,8 +43,8 @@ export const clerkWebhook = async (req, res) => {
       clerkUserId: event.data.id,
     });
 
-    await Post.deleteMany({ user: deletedUser._id });
-    await Comment.deleteMany({ user: deletedUser._id });
+    await Post.deleteMany({ user: deletedUser?._id });
+    await Comment.deleteMany({ user: deletedUser?._id });
   }
 
   return res.status(200).json({

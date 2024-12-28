@@ -21,7 +21,7 @@ export const addComment = async (req, res) => {
 
   const newComment = new Comment({
     ...req.body,
-    user: user._id,
+    user: user?._id,
     post: postId,
   });
 
@@ -51,7 +51,7 @@ export const deleteComment = async (req, res) => {
 
     const deletedComment = await Comment.findByIdAndDelete({
         _id: id,
-        user: user._id,
+        user: user?._id,
     });
 
     if (!deletedComment) {

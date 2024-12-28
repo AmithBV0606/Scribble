@@ -25,11 +25,11 @@ export const savePost = async (req, res) => {
   const isSaved = user.savedPosts.some((p) => p === postId);
 
   if (!isSaved) {
-    await User.findByIdAndUpdate(user._id, {
+    await User.findByIdAndUpdate(user?._id, {
       $push: { savedPosts: postId },
     });
   } else {
-    await User.findByIdAndUpdate(user._id, {
+    await User.findByIdAndUpdate(user?._id, {
       $pull: { savedPosts: postId },
     });
   }
